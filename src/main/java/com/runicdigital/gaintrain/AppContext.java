@@ -1,34 +1,46 @@
 package com.runicdigital.gaintrain;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class AppContext {
-    private Connection dbConnection;
+    private Connection connection;
+    private static final Logger LOGGER = LoggerFactory.getLogger(AppContext.class);
 
     public void start() {
         try {
             String dbUrl = "jdbc:sqlite:gaintrain.db";
-            this.dbConnection = DriverManager.getConnection(dbUrl);
+            this.connection = DriverManager.getConnection(dbUrl);
 
+            InputStream systemResourceAsStream = ClassLoader.getSystemResourceAsStream("schema.sql");
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(systemResourceAsStream, StandardCharsets.UTF_8));
 
-//            this.dbConnection.prepareStatement(String.valueOf(AppContext.class.getResource("schema.sql"))).execute();
+            StringBuffer stringBuffer = new StringBuffer();
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                stringBuffer.append(line);
+            }
+
+            this.connection.prepareStatement(stringBuffer.toString()).execute();
+        } catch (IOException e) {
+            LOGGER.error(e.getMessage());
+            throw new RuntimeException();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             throw new RuntimeException(e);
         }
-//        catch (IOException e) {
-//            System.out.println(e.getMessage());
-//            throw new RuntimeException(e);
-//        }
     }
 
     public Connection getConnection() {
-        return this.dbConnection;
+        return this.connection;
     }
 }

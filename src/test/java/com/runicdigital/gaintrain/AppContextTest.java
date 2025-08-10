@@ -1,5 +1,6 @@
 package com.runicdigital.gaintrain;
 
+import com.runicdigital.gaintrain.AppContext;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -8,6 +9,7 @@ public class AppContextTest {
     public void testAppContext() {
         AppContext appContext = new AppContext();
         appContext.start();
+
         Assertions.assertTrue(null != appContext.getConnection());
     }
 }

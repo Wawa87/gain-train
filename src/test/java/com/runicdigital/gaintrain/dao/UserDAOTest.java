@@ -1,29 +1,31 @@
 package com.runicdigital.gaintrain.dao;
 
 import com.runicdigital.gaintrain.AppContext;
+import com.runicdigital.gaintrain.AppContextTest;
 import com.runicdigital.gaintrain.dao.sqlite.UserDAOImpl;
 import com.runicdigital.gaintrain.model.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 
 public class UserDAOTest {
     @Test
-    public void testInsertUser() throws SQLException {
-        User user = new User();
-        user.setNickname("hotShopper");
-        user.setEmail("hotshopper@protonmail.com");
-        user.setPassword("dev123");
-
+    public void testInsertUser() {
         AppContext appContext = new AppContext();
         appContext.start();
 
-        Connection connection = appContext.getConnection();
-        UserDAOImpl userDAO = new UserDAOImpl(connection);
-        userDAO.insertUser(user);
+        User user = new User();
+        user.setEmail("testuser@test.com");
+        user.setNickname("testNickname");
+        user.setPassword("test123");
 
-        Assertions.assertTrue(user.getUserId() > 0, "Assert userId > 0");
+        UserDAOImpl userDAO = new UserDAOImpl(appContext.getConnection());
+        try {
+            userDAO.insertUser(user);
+            Assertions.assertTrue(user.getUserId() > 0);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
