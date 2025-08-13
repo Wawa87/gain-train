@@ -8,9 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class AppContext {
     private Connection connection;
@@ -30,7 +28,16 @@ public class AppContext {
                 stringBuffer.append(line);
             }
 
-            this.connection.prepareStatement(stringBuffer.toString()).execute();
+            String sqlDDL = stringBuffer.toString();
+            String[] statements = sqlDDL.split(";");
+            try (Statement stmt = this.connection.createStatement()) {
+                for (String statement : statements) {
+                    String trimmed = statement.trim();
+                    if (!trimmed.isEmpty()) {
+                        ((Statement) stmt).execute(trimmed);
+                    }
+                }
+            }
         } catch (IOException e) {
             LOGGER.error(e.getMessage());
             throw new RuntimeException();

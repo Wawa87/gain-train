@@ -16,6 +16,7 @@ public class UserDAOTest {
         appContext.start();
 
         User user = new User();
+        user.setUserId(1);
         user.setEmail("testuser@test.com");
         user.setNickname("testNickname");
         user.setPassword("test123");

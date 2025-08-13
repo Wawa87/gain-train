@@ -16,14 +16,22 @@ CREATE TABLE IF NOT EXISTS programs (
     user_id INT NOT NULL,
     name TEXT,
     startAt TEXT,
-    endAt TEXT
+    endAt TEXT,
+    FOREIGN KEY (user_id)
+    REFERENCES users (user_id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS workouts (
     workout_id INT PRIMARY KEY,
     program_id INT NOT NULL,
     startAt TEXT,
-    endAt TEXT
+    endAt TEXT,
+    FOREIGN KEY (program_id)
+    REFERENCES programs (program_id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS exercises (
@@ -37,5 +45,9 @@ CREATE TABLE IF NOT EXISTS sets (
     set_label TEXT NOT NULL,
     weight INT NOT NULL,
     reps INT NOT NULL,
-    notes TEXT
+    notes TEXT,
+    FOREIGN KEY (exercise_id)
+    REFERENCES exercises (exercise_id)
+        ON DELETE NO ACTION
+        ON UPDATE CASCADE
 );

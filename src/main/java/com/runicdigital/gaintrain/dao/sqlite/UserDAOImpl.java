@@ -27,13 +27,13 @@ public class UserDAOImpl implements UserDAO {
     public long insertUser(User user) throws SQLException {
         long result = -1;
         PreparedStatement preparedStatement = dbConnection.prepareStatement(insertStr, Statement.RETURN_GENERATED_KEYS);
-        preparedStatement.setString(0, user.getEmail());
-        preparedStatement.setString(1, user.getNickname());
-        preparedStatement.setString(2, user.getPassword());
+        preparedStatement.setString(1, user.getEmail());
+        preparedStatement.setString(2, user.getNickname());
+        preparedStatement.setString(3, user.getPassword());
         preparedStatement.execute();
         ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
         if (generatedKeys.next()) {
-            result = generatedKeys.getLong(0);
+            result = generatedKeys.getLong(1);
             user.setUserId(result);
         }
         generatedKeys.close();
