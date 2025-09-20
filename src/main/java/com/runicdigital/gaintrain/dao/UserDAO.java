@@ -5,9 +5,9 @@ import com.runicdigital.gaintrain.model.User;
 import java.sql.SQLException;
 
 public interface UserDAO {
-    public User queryUserById(long userId);
-    public User queryUserByEmail(String email);
+    public User queryUserById(long userId) throws SQLException;
+    public User queryUserByEmail(String email) throws SQLException;
     public long insertUser(User user) throws SQLException;
-    public int updateUser(User user);
-    public int deleteUser(User user);
+    public long updateUser(User user) throws SQLException;
+    public boolean deleteUser(User user) throws SQLException;
 }

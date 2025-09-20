@@ -3,16 +3,16 @@ package com.runicdigital.gaintrain.model;
 import java.time.Instant;
 
 public class Workout {
-    private long workout_id;
+    private long workoutId;
     private Instant startAt;
     private Instant endAt;
 
-    public long getWorkout_id() {
-        return workout_id;
+    public long getWorkoutId() {
+        return workoutId;
     }
 
-    public void setWorkout_id(long workout_id) {
-        this.workout_id = workout_id;
+    public void setWorkoutId(long workoutId) {
+        this.workoutId = workoutId;
     }
 
     public Instant getStartAt() {

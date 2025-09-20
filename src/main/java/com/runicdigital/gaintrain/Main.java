@@ -18,11 +18,10 @@ public class Main {
 
         AppContext appContext = new AppContext();
         appContext.start();
+        run();
     }
 
     public static void run() {
-        User user = new User();
-            user.setEmail("hotshopper@protonmail.com");
-            user.setNickname("");
+        System.out.println("Pause...");
     }
 }

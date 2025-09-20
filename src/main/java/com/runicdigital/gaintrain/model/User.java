@@ -38,6 +38,6 @@ public class User {
     }
 
     public void setPassword(String password) {
-        this.password = Base64.getEncoder().encode(password.getBytes(StandardCharsets.UTF_8)).toString();
+        this.password = password;
     }
 }
