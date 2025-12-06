@@ -1,5 +1,6 @@
 package com.runicdigital.gaintrain;
 
+import com.runicdigital.Loader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -9,6 +10,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.sql.*;
+import java.util.Properties;
 
 public class AppContext {
     private Connection connection;
@@ -16,7 +18,11 @@ public class AppContext {
 
     public void start() {
         try {
-            String dbUrl = "jdbc:sqlite:gaintrain.db";
+            Loader loader = new Loader();
+            Properties properties = loader.loadPropertiesFile("application.properties");
+
+            String dbUrl = "jdbc:sqlite:" + properties.getProperty("dbName");
+
             this.connection = DriverManager.getConnection(dbUrl);
 
             InputStream systemResourceAsStream = ClassLoader.getSystemResourceAsStream("schema.sql");
@@ -42,7 +48,7 @@ public class AppContext {
             LOGGER.error(e.getMessage());
             throw new RuntimeException();
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            LOGGER.error(e.getMessage());
             throw new RuntimeException(e);
         }
     }

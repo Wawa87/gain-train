@@ -2,6 +2,7 @@ DROP TABLE IF EXISTS exercises;
 DROP TABLE IF EXISTS sets;
 DROP TABLE IF EXISTS workouts;
 DROP TABLE IF EXISTS programs;
+DROP TABLE IF EXISTS config;
 DROP TABLE IF EXISTS users;
 
 CREATE TABLE IF NOT EXISTS users (
@@ -9,6 +10,17 @@ CREATE TABLE IF NOT EXISTS users (
     email TEXT UNIQUE NOT NULL,
     nickname TEXT,
     password TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS config (
+    config_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL,
+    ckey TEXT UNIQUE NOT NULL,
+    cval TEXT,
+    FOREIGN KEY (user_id)
+        REFERENCES users (user_id)
+            ON DELETE CASCADE
+            ON UPDATE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS programs (

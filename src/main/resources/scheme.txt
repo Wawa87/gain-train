@@ -4,6 +4,11 @@ email
 nickname
 password
 
+Config
+config_id
+ckey
+cval
+
 Program
 program_id
 start_date

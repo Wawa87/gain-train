@@ -20,7 +20,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public User queryUserById(long userId) throws SQLException {
+    public User findUserById(Long userId) throws SQLException {
         PreparedStatement preparedStatement = dbConnection.prepareStatement(queryStrById);
         preparedStatement.setString(1, String.valueOf(userId));
         ResultSet resultSet = preparedStatement.executeQuery();
@@ -42,7 +42,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public User queryUserByEmail(String email) throws SQLException {
+    public User findUserByEmail(String email) throws SQLException {
         PreparedStatement preparedStatement = dbConnection.prepareStatement(queryStrByEmail);
         preparedStatement.setString(1, String.valueOf(email));
         ResultSet resultSet = preparedStatement.executeQuery();
@@ -64,7 +64,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public long insertUser(User user) throws SQLException {
+    public long saveUser(User user) throws SQLException {
         long result = -1;
 
         user.setPassword(Base64.getEncoder().encode(user.getPassword().getBytes(StandardCharsets.UTF_8)).toString());

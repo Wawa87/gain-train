@@ -1,15 +1,7 @@
 package com.runicdigital.gaintrain;
 
-import com.runicdigital.gaintrain.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.*;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 public class Main {
     private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);

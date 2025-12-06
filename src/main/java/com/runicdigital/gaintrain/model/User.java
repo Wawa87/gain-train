@@ -1,19 +1,16 @@
 package com.runicdigital.gaintrain.model;
 
-import java.nio.charset.StandardCharsets;
-import java.util.Base64;
-
 public class User {
-    private long userId;
+    private Long userId;
     private String email;
     private String nickname;
     private String password;
 
-    public long getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(long userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
